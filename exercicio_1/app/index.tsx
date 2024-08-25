@@ -1,90 +1,98 @@
-import React from 'react';
-import { Button, Text, View, TextInput, ScrollView, Alert, StyleSheet } from 'react-native';
+import * as React from 'react';
+import { Text, View, Button, TextInput, StyleSheet, 
+  SafeAreaView, Alert} from "react-native";
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
-  },
-];
+  //Importa uma função utilizada pelo FireBase para criar um usuário com email e senha
+import {createUserWithEmailAndPassword} from 'firebase/auth'
 
-const createThreeButtonAlert = () => {
-  Alert.alert('Alert Title', 'My Alert Msg', [
-    {
-      text: 'Ask me later',
-      onPress: () => console.log('Ask me later Pressed'),
-    },
-    {
-      text: 'Cancel',
-      onPress: () => console.log('Cancel Pressed'),
-      style: 'cancel',
-    },
-    {
-      text: 'OK',
-      onPress: () => console.log('OK Pressed'),
-    },
-  ]);
-};
+  //Importa um objteo de autenticação configurado no projeto "../src/services/firebase"
+import{auth} from "../src/services/firebase";
 
-export default function App() {
+  //Criando o Alert
+
+export default function Index() {
+  
+  //Criação de estados para armazenar emails e senhas
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+
+  
+  // Criação de função assíncrona
+  async function cadastro() {
+    // Chama a função do FireBase para criar um novo usuario e senha
+    await createUserWithEmailAndPassword(auth, email, password)
+
+    Alert.alert("Sucesso!", "Usuário cadastrado com sucesso!")
+  };
+
+
   return (
-    <ScrollView contentContainerStyle={styles.contentContainerStyle}>
+    <SafeAreaView style={styles.contentContainerStyle}>
       <View style={styles.container}>
         <Text style={styles.title}>Cadastro de Usuário</Text>
       </View>
 
-      <View style={styles.container}>
+      <View>
         <TextInput
-          style={styles.input}
-          placeholder="Digite seu nome"
-          keyboardType="default"
+            style={styles.input}
+            onChangeText={setEmail}
+            value={email}
+            placeholder="Digite seu email"
+            keyboardType="default"
+            />
+        <TextInput
+        style={styles.input}
+        onChangeText={setPassword}
+        value={password}
+        placeholder="Digite sua senha"
+        keyboardType="default"
+      />
+      </View >
+    
+        <View style={styles.container}>
+        <Button
+            title="cadastrar"
+            color="#49708a"
+            onPress={()=> cadastro()}
+            />
+      </View>
+
+      <View style={styles.alertBtn}>
+        <Button
+          title='Show alert'
+          onPress={alert}
         />
       </View>
 
-      <View style={styles.container}>
-        <Button title="Enviar" onPress={createThreeButtonAlert} />
-      </View>
-
-      <FlatList
-        data={DATA}
-        renderItem={({item}) => <Item title={item.title} />}
-        keyExtractor={item => item.id}
-      />
-    </ScrollView>
+    </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    width: '80%', 
-  },
-
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-
-  container: {
-    alignItems: 'center',
-    marginVertical: 10,
-  },
-
   contentContainerStyle: {
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-});
+  container:{
+    margin: 10,
+    justifyContent: 'center',
+  },
+  title:{
+    fontFamily: 'Arial', 
+    fontSize: 30,
+  },
+  input:{
+    height: 40, // Define a altura dentro do TextInput
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10, // Adiciona padding horizontal dentro do TextInput
+    margin: 10
+  },
+  alertBtn:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
+})
