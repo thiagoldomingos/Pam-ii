@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Text, View, Button, TextInput, StyleSheet, 
-  SafeAreaView, Alert} from "react-native";
+  SafeAreaView, Alert, Image} from "react-native";
 
   //Importa uma função utilizada pelo FireBase para criar um usuário com email e senha
 import {createUserWithEmailAndPassword} from 'firebase/auth'
@@ -8,7 +8,8 @@ import {createUserWithEmailAndPassword} from 'firebase/auth'
   //Importa um objteo de autenticação configurado no projeto "../src/services/firebase"
 import{auth} from "../src/services/firebase";
 
-  //Criando o Alert
+  //Importação da biblioteca para imgs animadas
+import * as Animatable from 'react-native-animatable';
 
 export default function Index() {
   
@@ -28,42 +29,47 @@ export default function Index() {
 
   return (
     <SafeAreaView style={styles.contentContainerStyle}>
+
+      <View>
+        <Animatable.Image
+          animation="flipInY"
+          style={styles.img}
+          source={{
+            uri: 'https://www.achetudoeregiao.com.br/sp/sao_paulo/gifs/sao_paulo.jpg'
+            /*Ou utilize 
+              source{require('caminho da img')}*/
+          }}
+        />
+      </View>    
+
       <View style={styles.container}>
         <Text style={styles.title}>Cadastro de Usuário</Text>
       </View>
 
       <View>
         <TextInput
-            style={styles.input}
-            onChangeText={setEmail}
-            value={email}
-            placeholder="Digite seu email"
-            keyboardType="default"
-            />
+          style={styles.input}
+          onChangeText={setEmail}
+          value={email}
+          placeholder="Digite seu email"
+          keyboardType="default"
+        />
         <TextInput
-        style={styles.input}
-        onChangeText={setPassword}
-        value={password}
-        placeholder="Digite sua senha"
-        keyboardType="default"
-      />
+          style={styles.input}
+          onChangeText={setPassword}
+          value={password}
+          placeholder="Digite sua senha"
+          keyboardType="default"
+        />
       </View >
     
-        <View style={styles.container}>
+      <View style={styles.container}>
         <Button
-            title="cadastrar"
-            color="#49708a"
-            onPress={()=> cadastro()}
-            />
-      </View>
-
-      <View style={styles.alertBtn}>
-        <Button
-          title='Show alert'
-          onPress={alert}
+          title="cadastrar"
+          color="#49708a"
+          onPress={()=> cadastro()}
         />
       </View>
-
     </SafeAreaView>
   );
 };
@@ -73,6 +79,12 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  img:{
+    borderRadius: 30,
+    width: 250,
+    height: 200,
+    marginBottom: 20,
   },
   container:{
     margin: 10,
