@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Text, View, Button, TextInput, StyleSheet, 
-  SafeAreaView, Alert} from "react-native";
+  SafeAreaView, Pressable} from "react-native";
 
   //Importa uma função utilizada pelo FireBase para criar um usuário com email e senha
 import {createUserWithEmailAndPassword} from 'firebase/auth'
@@ -11,14 +11,13 @@ import{auth} from "../src/services/firebase";
   //Importação da biblioteca para imgs animadas
 import * as Animatable from 'react-native-animatable';
 
-import { useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 
 export default function Index() {
   
   //Criação de estados para armazenar emails e senhas
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
-  const router = useRouter();
   
   // Criação de função assíncrona
   async function cadastro() {
@@ -26,13 +25,11 @@ export default function Index() {
     try{
     await createUserWithEmailAndPassword(auth, email, password)
     //Faz a função do if
-        console.log('Cadastro bem-sucedido');
-        router.replace('/welcome');
+        window.alert('Cadastro bem-sucedido');
       }
     //Faz a função do if else
       catch(error){
-        console.log('Erro de cadastro:',error);
-        Alert.alert('ERRO', 'Usuário já cadastrado');
+        window.alert('ERRO');
       }
     }
 
@@ -69,15 +66,25 @@ export default function Index() {
           value={password}
           placeholder="Digite sua senha"
           keyboardType="default"
+          secureTextEntry={true}
         />
       </View >
     
       <View style={styles.container}>
+        
         <Button
           title="welcome"
           color="#49708a"
           onPress={()=> cadastro()}
         />
+        
+      </View>
+      <View>
+      <Link href="/about" asChild>
+      <Pressable>
+        <Text>Home</Text>
+      </Pressable>
+    </Link>
       </View>
     </SafeAreaView>
   );

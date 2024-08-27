@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 
 import Index from './index';
-import Welcome from './welcome';
+import Welcome from '.';
 const Stack = createNativeStackNavigator();
 
 export default function RootLayout() {
@@ -15,10 +15,7 @@ export default function RootLayout() {
         options={{headerShown: false}}
       />
 
-      <Stack.Screen 
-        name='Welcome'
-        component={Welcome}
-      />
+
     </Stack.Navigator>
   );
 }
