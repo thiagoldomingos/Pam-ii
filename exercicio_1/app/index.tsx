@@ -1,100 +1,51 @@
-import * as React from 'react';
-import { Text, View, Button, TextInput, StyleSheet, SafeAreaView } from "react-native";
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from "../src/services/firebase";
+import {useEffect} from "react";
+import { View, Text, StyleSheet } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import { Link } from 'expo-router';
+import { useRouter } from "expo-router";
 
-export default function Index() {
-  // Criação de estados para armazenar emails e senhas
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+export default function Home(){
 
-  // Criação de função para cadastro
-  function cadastro() {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        // Alerta de sucesso
-        alert('Cadastro bem-sucedido');
-      })
-      .catch((error) => {
-        // Alerta de erro com a mensagem do erro
-        alert('ERRO: ' + error.message);
-      });
-  }
+    const imageHome = require('../imagens/satoro.webp');
 
-  return (
-    <SafeAreaView style={styles.contentContainerStyle}>
-      <View>
-        <Animatable.Image
-          animation="flipInY"
-          style={styles.img}
-          source={{ uri: 'https://www.achetudoeregiao.com.br/sp/sao_paulo/gifs/sao_paulo.jpg' }}
-        />
-      </View>
+    const router = useRouter();
 
-      <View style={styles.container}>
-        <Text style={styles.title}>Cadastro de Usuário</Text>
-      </View>
+    useEffect(()=>{
+        const timer = setTimeout(()=>{
+            router.push('/home');
+        }, 3000);
+    })
 
-      <View>
-        <TextInput
-          style={styles.input}
-          onChangeText={setEmail}
-          value={email}
-          placeholder="Digite seu email"
-          keyboardType="email-address"
-        />
-        <TextInput
-          style={styles.input}
-          onChangeText={setPassword}
-          value={password}
-          placeholder="Digite sua senha"
-          secureTextEntry={true}
-        />
-      </View>
-
-      <View style={styles.container}>
-        <Link href="/about">
-          <Button
-            title="Cadastrar"
-            color="#49708a"
-            onPress={cadastro}
-          />
-        </Link>
-      </View>
-    </SafeAreaView>
-  );
+    return(
+        <View style={styles.container}>
+            <Text style={styles.titleIndex}>
+                welcome to best App
+            </Text>
+            <Animatable.Image
+                style={styles.imgAnimatable}
+                animation={{
+                    from:{ rotateY: '0deg'},
+                    to: {rotateY: '180deg'}
+                }}
+                
+                source={imageHome}
+            />
+        </View>
+    );
 }
 
-const styles = StyleSheet.create({
-  contentContainerStyle: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  img: {
-    borderRadius: 30,
-    width: 250,
-    height: 200,
-    marginBottom: 20,
-  },
-  container: {
-    margin: 10,
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 30,
-    textAlign: 'center',
-    marginBottom: 20,
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    margin: 10,
-    width: '80%',
-  },
-});
+const styles = StyleSheet.create({ 
+    container:{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    titleIndex:{
+        marginBottom: 10,
+        fontSize: 30
+    },
+    imgAnimatable:{
+        width: 150,
+        height: 150,
+        borderRadius: 30
+    }
+})
