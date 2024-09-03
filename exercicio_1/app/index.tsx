@@ -26,7 +26,6 @@ export default function Home(){
                     from:{ rotateY: '0deg'},
                     to: {rotateY: '180deg'}
                 }}
-                
                 source={imageHome}
             />
         </View>

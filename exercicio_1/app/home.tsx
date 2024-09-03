@@ -4,7 +4,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from "../src/services/firebase";
 import * as Animatable from 'react-native-animatable';
 import { Link } from 'expo-router';
-import { useRouter } from 'expo-router';
+
 
 export default function Index() {
   // Criação de estados para armazenar emails e senhas
@@ -42,9 +42,7 @@ export default function Index() {
 
       <View style={styles.container}>
         <Text style={styles.title}>Sasageyo</Text>
-      </View>
 
-      <View>
         <TextInput
           style={styles.input}
           onChangeText={setEmail}
@@ -59,10 +57,8 @@ export default function Index() {
           placeholder="Digite sua senha"
           secureTextEntry={true}
         />
-      </View>
 
-      <View style={styles.container}>
-        <Link href="/about">
+        <Link href="/app/page/index">
           <Button
             title="Cadastrar"
             color="#49708a"
@@ -80,19 +76,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  container:{
+    justifyContent: 'center',
+    alignItems: 'center', 
+  },
+
   img: {
     borderRadius: 30,
     width: 370,
     height: 210,
     marginBottom: 20,
   },
-  container: {
-    margin: 10,
-    justifyContent: 'center',
-  },
+
   title: {
     fontSize: 30,
-    textAlign: 'center',
     marginBottom: 20,
   },
   input: {
