@@ -1,9 +1,11 @@
-import { router } from "expo-router";
+import { router, useRouter } from "expo-router";
 import React from "react";
-import { View, Text, StyleSheet, SafeAreaView, Image, ScrollView } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView, Image, ScrollView, Pressable } from "react-native";
+import { Link } from "expo-router";
 
 export default function Index() {
 
+    // variáveis para guarda as imagens de cada Anime
     const imageNaruto = require('../../imagens/Naruto.jpg');
     const imageDragon = require('../../imagens/Dragon.jpg');
     const imageNanatsu = require('../../imagens/Nanatsu.jpg');
@@ -11,60 +13,60 @@ export default function Index() {
     const imageBoku = require('../../imagens/Boku.jpg');
     const imageDemon = require('../../imagens/demon.jpg')
 
-
     return (
         <ScrollView>
             <SafeAreaView style={styles.contentContainer}>
-            <View style={styles.container_one}>
-                <View style={styles.item}>
-                    <Text>Naruto</Text>
-                    <Image
-                        source={imageNaruto}
-                        style={styles.image}
-                    />
-                </View>
-                <View style={styles.item}>
-                    <Text>Dragon Ball</Text>
-                    <Image
-                        source={imageDragon}
-                        style={styles.image}
-                    />
-                </View>
-                <View style={styles.item}>
-                    <Text>Nanatsu no Taizai</Text>
-                    <Image
-                        source={imageNanatsu}
-                        style={styles.image}
-                    />
-                </View>
-            </View>
-            </SafeAreaView>
-
-            <SafeAreaView style={styles.contentContainer_two}>
-            <View style={styles.container_two}>
-                <View style={styles.item}>
-                    <View> One Pucnh</View>
-                    <Image 
-                        source={imageOne}
-                        style={styles.image}
-                    />
+                <View style={styles.container}>
+                    <View style={styles.item}>
+                        <Text>Naruto</Text>
+                        <Link href="/page/pageAnimes\naruto">
+                            <Pressable>
+                                <Image source={imageNaruto} style={styles.image} />
+                            </Pressable>
+                        </Link>
+                    </View>
+                    <View style={styles.item}>
+                        <Text>Dragon Ball</Text>
+                        <Link href="/page/pageAnimes\dragon">
+                            <Pressable>
+                                <Image source={imageDragon} style={styles.image} />
+                            </Pressable>
+                        </Link>
+                    </View>
+                    <View style={styles.item}>
+                        <Text>Nanatsu no Taizai</Text>
+                        <Link href="/page/pageAnimes\nanatsu">
+                            <Pressable>
+                                <Image source={imageNanatsu} style={styles.image} />
+                            </Pressable>
+                        </Link>
+                    </View>
+                    <View style={styles.item}>
+                        <Text>One Punch</Text>
+                        <Link href="/page/pageAnimes\one">
+                            <Pressable>
+                                <Image source={imageOne} style={styles.image} />
+                            </Pressable>
+                        </Link>
+                    </View>
                     <View style={styles.item}>
                         <Text>Boku no Hero</Text>
-                        <Image
-                            source={imageBoku}
-                            style={styles.image}
-                        />
+                        <Link href="/page/pageAnimes\boku">
+                            <Pressable>
+                                <Image source={imageBoku} style={styles.image} />
+                            </Pressable>
+                        </Link>
                     </View>
                     <View style={styles.item}>
-                        <Text> Demon Slayer</Text>            
-                        <Image
-                            source={imageDemon}
-                            style={styles.image}
-                        />
+                        <Text>Demon Slayer</Text>
+                        <Link href="/page/pageAnimes\demon">
+                            <Pressable>
+                                <Image source={imageDemon} style={styles.image} />
+                            </Pressable>
+                        </Link>
                     </View>
                 </View>
-            </View>
-        </SafeAreaView>
+            </SafeAreaView>
         </ScrollView>
     );
 }
@@ -72,29 +74,28 @@ export default function Index() {
 const styles = StyleSheet.create({
     contentContainer: {
         flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center',
     },
-    container_one: {
+    container: {
         flexDirection: 'row',
+        flexWrap: 'wrap',
         justifyContent: 'space-between',
-        padding: 5,
-        maxWidth: 1500
+        alignItems: 'center',
+        width: '90%',
     },
     item: {
         alignItems: 'center',
+        width: '30%',
+        marginVertical: 10,
     },
     image: {
-        width: 300,
         height: 300,
-        marginTop: 10,
-        margin: 30,
-        borderRadius: 30
-    },
 
-    // Container 2
-    contentContainer_two:{
-        alignItems: 'center',
-        justifyContent: 'space-around'
+        width: 300, // Ensures that the image takes up the full width of the item
+        aspectRatio: 1, // Ensures that the image is square
+        marginTop: 10,
+        borderRadius: 30,
     },
 });
+

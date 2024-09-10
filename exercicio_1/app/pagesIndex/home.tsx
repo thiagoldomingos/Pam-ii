@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Text, View, Button, TextInput, StyleSheet, SafeAreaView } from "react-native";
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from "../src/services/firebase";
+import { auth } from "../../src/services/firebase";
 import * as Animatable from 'react-native-animatable';
 import { Link } from 'expo-router';
 
 
-export default function Index() {
+export default function Home() {
   // Criação de estados para armazenar emails e senhas
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -24,7 +24,7 @@ export default function Index() {
       });
   }
 
-  const sasageyo = require('../imagens/sasageyo.jpeg')
+  const sasageyo = require('../../imagens/sasageyo.jpeg')
 
   return (
     <SafeAreaView style={styles.contentContainerStyle}>

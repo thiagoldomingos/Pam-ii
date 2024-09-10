@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { useRouter } from "expo-router";
 
-export default function Home(){
+export default function Index(){
 
     const imageHome = require('../imagens/satoro.webp');
 
@@ -11,7 +11,7 @@ export default function Home(){
 
     useEffect(()=>{
         const timer = setTimeout(()=>{
-            router.push('/home');
+            router.push('/pagesIndex/home');
         }, 3000);
     })
 
